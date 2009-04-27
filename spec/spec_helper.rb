@@ -10,16 +10,28 @@ require 'rubygems'
 end
 
 Spec::Runner.configure do |config|
+
+  config.before(:each) do
+    PhD.hosts.clear
+  end
+  
   def isolate_config_files
     before do
+      return if @isolated_config_files; @isolate_config_files = true
       PhD.rcfile = File.dirname(__FILE__) + '/.phdrc'
       PhD.rcdir  = File.dirname(__FILE__) + '/.phd'
     end
     after do
-      File.rm   PhD.rcfile if File.file?(PhD.rcfile)
-      File.rm_r PhD.rcdir  if File.directory?(PhD.rcdir)
+      return if @deisolated_config_files; @deisolate_config_files = true
+      FileUtils.rm   PhD.rcfile if File.file?(PhD.rcfile)
+      FileUtils.rm_r PhD.rcdir  if File.directory?(PhD.rcdir)
       PhD.rcfile = PhD::RCFILE
       PhD.rcdir  = PhD::RCDIR
     end
   end
+
+  def phd command = ''
+    `bin/phd --rcfile #{ PhD.rcfile } --rcdir #{ PhD.rcdir } #{ command }`
+  end
+
 end

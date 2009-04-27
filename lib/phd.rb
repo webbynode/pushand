@@ -1,7 +1,9 @@
 $:.unshift File.dirname(__FILE__)
 
-%w( rubygems simplecli ).each {|lib| require lib }
-%w( phd bin host ).each {|file| require "phd/#{ file }" }
+class PhD; end
+
+%w( rubygems simplecli optparse-simple yaml fileutils ).each {|lib| require lib }
+%w( host phd bin add_hook ).each {|file| require "phd/#{ file }" }
 
 # namespace aliases
 PHD = PhD unless defined? PHD
