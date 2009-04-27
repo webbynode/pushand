@@ -19,7 +19,7 @@ describe PhD::Bin do
 
   it 'should be able to create hosts' do
     PhD.hosts.should be_empty
-    phd('hosts:add foo')
+    phd('hosts:add foo').should include('Host added: foo')
     # phd('hosts_add foo')
     PhD.hosts.should_not be_empty
     PhD.hosts.names.should include('foo')

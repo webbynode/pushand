@@ -68,6 +68,7 @@ doco
     end
     def hosts_add name
       PhD.hosts.add name
+      puts "Host added: #{ name }"
     end
 
     protected
