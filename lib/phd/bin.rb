@@ -71,6 +71,41 @@ doco
       puts "Host added: #{ name }"
     end
 
+    def hosts_create_help
+      <<doco
+  Usage: #{ script_name } hosts:create hostname --adapter slicehost --domain foo.com
+
+    Summary:
+      Creates a host
+doco
+    end
+    def hosts_create name, *args
+      
+      # TODO need to move all of the logic into an adapter
+
+      options = { }
+      opts = OptParseSimple.new do |opts|
+        opts.on('-a', '--adapter [x]'){|x| options[:adapter] = x }
+        opts.on('-d', '--domain [x]'){|x|  options[:domain]  = x }
+      end
+      opts.parse! args
+
+      if options[:adapter] == 'slicehost'
+
+        # booster-slicehost-tools
+        if `which slicehost-slice`.empty?
+          puts "slicehost-tools is required, sudo gem install booster-slicehost-tools"
+          return nil
+        end
+
+        puts "Creating a new slice ..."
+        puts `slicehost-slice add #{name}`
+
+      else
+        puts "unsupported adapter: #{ options[:adapter].inspect }"
+      end
+    end
+
     protected
 
     def handle_global_arguments args
