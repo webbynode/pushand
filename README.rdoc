@@ -1,0 +1,6 @@
+= phd
+
+1. deploy app to app server (prototype)
+2. deploy app to app server automagically via git
+3. remotely
+4. ?
