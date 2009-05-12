@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# need to fix this so it's not static
+PATH_TO_PHD_SCRIPTS=/home/remi/projects/remi/phd
+
 # if PHD_GIT_LOG isn't set, give it a default
 if [[ -z "$PHD_GIT_LOG" ]]; then
 	PHD_GIT_LOG="/home/remi/desktop/git-receive-pack.log"
