@@ -1,0 +1,24 @@
+#!/bin/sh
+
+echo 'Hello from post-receive hook'
+
+# checkout the real 'master' so we can view the repo files
+
+here=`pwd`
+working_dir=`echo "$here" | sed 's/\/.git$//g'`
+repo_script="$working_dir/.pushand"
+
+output=`git --work-tree=$working_dir checkout -b foo master 2>&1`
+has_error=`echo "$output" | grep 'already exists'`
+
+if [ -z "$has_error" ]; then
+	echo 'Checked out master branch'
+else
+	echo 'Merging latest changes'
+	git --work-tree=$working_dir merge master
+fi
+
+# if the repository has a file called '.pushand' then run it
+if [ -x "$repo_script" ]; then
+	exec "$repo_script"
+fi

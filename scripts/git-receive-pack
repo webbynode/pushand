@@ -2,6 +2,7 @@
 
 # need to fix this so it's not static
 PATH_TO_PHD_SCRIPTS=/home/remi/projects/remi/phd
+post_receive_hook_script=$PATH_TO_PHD_SCRIPTS/scripts/post-receive
 
 # if PHD_GIT_LOG isn't set, give it a default
 if [[ -z "$PHD_GIT_LOG" ]]; then
@@ -23,7 +24,17 @@ else
 	log "repo doesn't exist!  creating $repo"
 	mkdir -pv "$repo" >> $PHD_GIT_LOG 2>&1
 	cd "$repo"        >> $PHD_GIT_LOG 2>&1
-	git init --bare   >> $PHD_GIT_LOG 2>&1
+
+	# we don't want a bare repository because 
+	# we want to be able to view the scripts 
+	# in the actual git repository
+	#   git init --bare   >> $PHD_GIT_LOG 2>&1
+
+	git init          >> $PHD_GIT_LOG 2>&1
+
+	# add the default hook (as a symlink)
+	ln -s $post_receive_hook_script .git/hooks/post-receive
+
 	cd "$go_back"     >> $PHD_GIT_LOG 2>&1
 fi
 
