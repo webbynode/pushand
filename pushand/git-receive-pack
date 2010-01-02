@@ -1,0 +1,16 @@
+#! /bin/bash
+
+repo="$1"
+post_receive_hook_script="$(dirname $0)/pushand_post-receive_hook"
+
+if [[ ! -d "$repo" ]]; then
+	go_back="$(pwd)"
+	mkdir -pv "$repo" > /dev/null
+	cd "$repo"
+	git init > /dev/null
+	ln -s $post_receive_hook_script .git/hooks/post-receive > /dev/null
+	cd "$go_back"
+fi
+
+# make the real call to the real git-receive-pack
+/usr/bin/git-receive-pack_original $*
