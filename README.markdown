@@ -1,4 +1,4 @@
-pushand
+PushAnd
 =======
 
 A tiny set of BASH scripts that makes it easy to **push** a git repository **and** ... do something!
