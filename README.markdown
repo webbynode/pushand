@@ -35,7 +35,7 @@ Usage
     Counting objects: 3, done.
     Writing objects: 100% (3/3), 238 bytes, done.
     Total 3 (delta 0), reused 0 (delta 0)
-    To remi@localhost:/home/remi/desktop/random-repo.git
+    To remi@localhost:/home/remi/random-repo.git
      * [new branch]      master -> master
      Checked out master branch
      Hello from .pushand ... this file is /home/remi/random-repo.git/.pushand
