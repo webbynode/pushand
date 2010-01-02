@@ -15,6 +15,11 @@ else
 	if [[ ! -w "$real_script_path" ]]; then
 		echo "You don't have permission to modify $real_script_path"
 	else 
+		# make the directory that we back up git-receive-pack in.
+		# it has to be in a directory because the script *must* keep 
+		# the name 'git-receive-pack' (in the latest versions of git)	
+		mkdir -p $real_script_new_dir
+
 		# move the real git-receive-pack
 		mv $real_script_path $real_script_new_path
 

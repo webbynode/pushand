@@ -16,6 +16,9 @@ if [[ -f "$real_script_new_path" ]]; then
 		# get rid of the copy of our post-receive hook that we no longer need
 		rm $post_receive_hook_new_path
 
+		# get rid of the directory we made to backup the original git-receive-hook in
+		rm -r $real_script_new_dir
+
 		echo 'pushand uninstalled'
 	fi
 else

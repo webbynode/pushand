@@ -1,6 +1,8 @@
 real_script_path=$(which git-receive-pack)
 real_script_dir=$(dirname $real_script_path)
-real_script_new_path="$real_script_dir/git-receive-pack_original"
+
+real_script_new_dir="$real_script_dir/git-receive-pack_original"
+real_script_new_path="$real_script_new_dir/git-receive-pack"
 
 our_script_path="$(dirname $0)/git-receive-pack"
 
