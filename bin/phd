@@ -9,8 +9,7 @@ PHD_APACHE_VIRTUALHOSTS='/etc/apache2/phd-sites'
 PHD_APACHE_CONFIG='/etc/apache2/apache2.conf'
 PHD_APACHE_INCLUDE="Include $PHD_APACHE_VIRTUALHOSTS"
 PHD_APACHE_RELOAD='/etc/init.d/apache2 reload'
-PHD_APACHE_VIRTUALHOST_TEXT='NameVirtualHost *:80
-<VirtualHost *:80>
+PHD_APACHE_VIRTUALHOST_TEXT='<VirtualHost *:80>
   ServerName $host
   DocumentRoot $dir/public
   PassengerAppRoot $dir
