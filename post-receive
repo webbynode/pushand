@@ -17,3 +17,23 @@ fi
 if [ -x "$repo_script" ]; then
 	exec "$repo_script"
 fi
+
+# JumpBox for Ruby on Rails
+
+# If /var/data/app/old doesn't exist, we haven't deployed an application yet
+if [ ! -d /var/data/app/old ]; then
+	echo 'Default application still enabled.  Disabling.'
+	echo "Enabling new application: $working_dir"
+	mv /var/data/app/current /var/data/app/old
+else
+	echo 'Application already deployed'
+fi
+
+# Passenger no longer likes symlinks so we copy the repo to /var/data/app/current (for now).
+# Ideally, we would just symlink.
+echo 'Updating application'
+rsync -ra $working_dir/ /var/data/app/current
+
+echo 'Restarting application'
+mkdir -p /var/data/app/current/tmp
+touch /var/data/app/current/tmp/restart.txt
