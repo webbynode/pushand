@@ -34,6 +34,12 @@ fi
 echo 'Updating application'
 rsync -ra $working_dir/ /var/data/app/current
 
+# If the app doesn't have a config/database.yml, let's add one from the old application
+if [ ! -f /var/data/app/current/config/database.yml ]; then
+        mkdir -p /var/data/app/current/config
+        cp /var/data/app/old/config/database.yml /var/data/app/current/config/database.yml
+fi
+
 echo 'Restarting application'
 mkdir -p /var/data/app/current/tmp
 touch /var/data/app/current/tmp/restart.txt
