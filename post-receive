@@ -15,5 +15,6 @@ fi
 
 # If the repository has a file called '.pushand' then run it
 if [ -f "$repo_script" ]; then
+  chmod +x $repo_script
 	exec "$repo_script"
 fi
