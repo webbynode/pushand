@@ -10,7 +10,11 @@ if [ -z "$has_error" ]; then
 	echo 'Checked out master branch'
 else
 	echo 'Merging latest changes'
-	git --work-tree=$working_dir merge master
+  cd ..
+  env -i git merge master
+  env -i git checkout -f
+  env -i git reset --hard
+  # git --work-tree=$working_dir merge master
 fi
 
 # If the repository has a file called '.pushand' then run it
