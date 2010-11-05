@@ -4,21 +4,13 @@
 here=`pwd`
 working_dir=`echo "$here" | sed 's/\/.git$//g'`
 repo_script="$working_dir/.pushand"
-output=`git --work-tree=$working_dir checkout -b foo master 2>&1`
-has_error=`echo "$output" | grep 'already exists'`
-if [ -z "$has_error" ]; then
-	echo 'Checked out master branch'
-else
-	echo 'Merging latest changes'
-  cd ..
-  env -i git merge master
-  env -i git checkout -f
-  env -i git reset --hard
-  # git --work-tree=$working_dir merge master
-fi
+output=`git --work-tree=$working_dir checkout master 2>&1`
+
+cd ..
+env -i git reset --hard
 
 # If the repository has a file called '.pushand' then run it
 if [ -f "$repo_script" ]; then
   chmod +x $repo_script
-	exec "$repo_script"
+  exec "$repo_script"
 fi
