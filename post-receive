@@ -1,4 +1,16 @@
 #!/bin/sh
+read oldrev newrev refname
+if [ "$refname" != "refs/heads/master" ]; then
+  echo ""
+  echo "----------------------------"
+  echo "  Webbynode git deployment "
+  echo "----------------------------"
+  echo ""
+  echo "  Not pushing on master..."
+  echo "  Nothing to do."
+  echo "----------------------------"
+  exit
+fi
 
 # Checkout the real 'master' so we can view the repo files
 here=`pwd`
